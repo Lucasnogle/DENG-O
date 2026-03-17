@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para o Meu Dengo 🐾</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800;900&family=Dancing+Script:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet"/>
+  <style>
+    /* ===================== RESET & ROOT ===================== */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --white:   #FFFFFF;
+      --cream:   #FAFAF7;
+      --black:   #1A1A1A;
+      --yellow:  #FFD700;
+      --yellow2: #FFF176;
+      --red:     #E63946;
+      --sky:     #B3DFF0;
+      --gray:    #F0F0F0;
+      --ink:     #2d2d2d;
+    }
+
+    body {
+      background: var(--cream);
+      font-family: 'Nunito', sans-serif;
+      color: var(--ink);
+      overflow-x: hidden;
+      cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><text y='26' font-size='22'>🐾</text></svg>") 12 12, auto;
+    }
+
+    #hero-video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-enter-btn {
+      position: absolute;
+      bottom: 50px;
+      z-index: 100;
+      background: var(--black);
+      border: 4px solid var(--black);
+      border-radius: 999px;
+      color: var(--yellow);
+      font-family: 'Pacifico', cursive;
+      font-size: 1.4rem;
+      padding: 18px 52px;
+      cursor: pointer;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+      box-shadow: 8px 8px 0 var(--yellow);
+      display: none; /* shows after 1s */
+      animation: heroPulse 2s ease-in-out infinite;
+    }
+    @keyframes heroPulse {
+      0%, 100% { transform: scale(1); box-shadow: 8px 8px 0 var(--yellow); }
+      50% { transform: scale(1.05); box-shadow: 12px 12px 0 var(--yellow); }
+    }
+    #video-hero {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+    #video-hero.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .hero-enter-btn:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 12px 12px 0 var(--yellow);
+    }
+    .hero-enter-btn:active {
+      transform: translate(0, 0);
+      box-shadow: 4px 4px 0 var(--yellow);
+    }
+
+    /* ===================== NAV ===================== */
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 32px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 3px solid var(--black);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .nav-logo {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.3rem;
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 6px;
+    }
+    .nav-link {
+      background: none;
+      border: 2px solid var(--black);
+      border-radius: 999px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      color: var(--black);
+    }
+    .nav-link:hover, .nav-link.active {
+      background: var(--yellow);
+      border-color: var(--black);
+      transform: translateY(-2px);
+    }
+
+    /* ===================== SECTIONS ===================== */
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ===================== SNOOPY DECORATIONS ===================== */
+    .snoopy-float {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      animation: floatSnoopy 5s ease-in-out infinite;
+      z-index: 0;
+    }
+    @keyframes floatSnoopy {
+      0%,100% { transform: translateY(0px) rotate(-3deg); }
+      50%      { transform: translateY(-22px) rotate(3deg); }
+    }
+
+    /* Paw prints background pattern */
+    .paw-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><text x='10' y='50' font-size='30' opacity='0.06'>🐾</text></svg>");
+      background-repeat: repeat;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===================== SECTION TITLES ===================== */
+    .sec-label {
+      font-family: 'Patrick Hand', cursive;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 8px;
+      position: relative; z-index: 2;
+    }
+    .sec-title {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--black);
+      margin-bottom: 18px;
+      position: relative; z-index: 2;
+      text-align: center;
+    }
+    .sec-title span { color: var(--red); }
+    .sec-text {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      line-height: 1.9;
+      color: var(--ink);
+      max-width: 680px;
+      text-align: center;
+      position: relative; z-index: 2;
+    }
+
+    /* ===================== DIVIDER ===================== */
+    .comic-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 12px 0;
+      position: relative; z-index: 2;
+    }
+    .comic-divider span { font-size: 1.5rem; }
+    .comic-divider::before, .comic-divider::after {
+      content: '';
+      flex: 1;
+      height: 3px;
+      background: var(--black);
+      border-radius: 2px;
+    }
+
+    /* ===================== CARD (glass-white) ===================== */
+    .white-card {
+      background: white;
+      border: 3px solid var(--black);
+      border-radius: 24px;
+      padding: 40px 44px;
+      box-shadow: 8px 8px 0 var(--black);
+      max-width: 800px;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===================== SECTION 1: INTRO ===================== */
+    #intro { background: var(--white); }
+
+    /* ===================== PHOTO 1: PARALLAX (neon club) ===================== */
+    #photo1 { background: var(--white); position: relative; overflow: hidden; }
+    .parallax-scene {
+      position: relative;
+      width: min(92vw,520px);
+      border-radius: 24px;
+      overflow: hidden;
+      border: 4px solid white;
+      box-shadow: 0 0 0 8px rgba(255,255,255,0.1), 0 20px 60px rgba(0,0,0,0.6);
+      z-index: 2;
+      cursor: crosshair;
+    }
+    .parallax-scene img {
+      width: 100%;
+      display: block;
+      transform-origin: center;
+      transition: transform 0.1s ease;
+    }
+    .parallax-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 60%, rgba(0,0,0,0.75));
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+    .parallax-caption {
+      color: white;
+      font-family: 'Pacifico', cursive;
+      font-size: 1.2rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+    #photo1 .sec-title, #photo1 .sec-text, #photo1 .sec-label { color: var(--black); }
+    #photo1 .sec-title span { color: var(--yellow); }
+    .neon-tag {
+      display: inline-block;
+      font-family: 'Pacifico', cursive;
+      font-size: 0.9rem;
+      padding: 6px 18px;
+      border-radius: 999px;
+      border: 2px solid;
+      margin: 4px;
+      animation: neonGlow 2s ease-in-out infinite alternate;
+    }
+    .neon-tag.pink  { color: var(--red); border-color: var(--red); box-shadow: 4px 4px 0 rgba(230,57,70,0.2); }
+    .neon-tag.cyan  { color: var(--black); border-color: var(--black); box-shadow: 4px 4px 0 var(--yellow); }
+    .neon-tag.gold  { color: var(--black); border-color: var(--black); background: var(--yellow); box-shadow: 4px 4px 0 var(--black); }
+    @keyframes neonGlow {
+      from { text-shadow: 0 0 10px currentColor; }
+      to   { text-shadow: 0 0 25px currentColor, 0 0 50px currentColor; }
+    }
+
+    /* ===================== PHOTO 2: POLAROID FLIP (childhood) ===================== */
+    #photo2 { background: var(--white); }
+    .polaroid-scene {
+      perspective: 1000px;
+      width: 300px;
+      height: 360px;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .polaroid-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.175,0.885,0.32,1.275);
+    }
+    .polaroid-scene:hover .polaroid-inner,
+    .polaroid-scene.flipped .polaroid-inner { transform: rotateY(180deg); }
+    .polaroid-front, .polaroid-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 4px;
+      box-shadow: 6px 6px 0 var(--black);
+    }
+    .polaroid-front {
+      background: white;
+      border: 3px solid var(--black);
+      padding: 10px 10px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .polaroid-front img { width: 100%; flex: 1; object-fit: cover; border-radius: 2px; }
+    .polaroid-label {
+      font-family: 'Patrick Hand', cursive;
+      font-size: 1rem;
+      padding-top: 8px;
+      text-align: center;
+      color: var(--ink);
+    }
+    .polaroid-back {
+      background: var(--yellow);
+      border: 3px solid var(--black);
+      transform: rotateY(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 24px;
+      text-align: center;
+    }
+    .polaroid-back .back-title {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.3rem;
+      color: var(--black);
+      margin-bottom: 10px;
+    }
+    .polaroid-back p {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.7;
+    }
+    .flip-hint {
+      font-family: 'Patrick Hand', cursive;
+      font-size: 0.9rem;
+      color: var(--black);
+      margin-top: 10px;
+      position: relative; z-index: 2;
+      opacity: 0.7;
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:0.7} 50%{opacity:0.2} }
+
+    /* ===================== PHOTO 3: HEART CURTAIN (kiss) ===================== */
+    #photo3 { background: var(--cream); }
+    .curtain-wrapper {
+      position: relative;
+      width: min(92vw, 480px);
+      border-radius: 24px;
+      overflow: hidden;
+      border: 4px solid var(--black);
+      box-shadow: 8px 8px 0 var(--black);
+      cursor: pointer;
+      z-index: 2;
+    }
+    .curtain-wrapper img { width: 100%; display: block; }
+    .curtain-left, .curtain-right {
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      transition: transform 1.2s cubic-bezier(0.77,0,0.175,1);
+      z-index: 3;
+    }
+    .curtain-left  { left: 0; border-right: 2px solid #eee; }
+    .curtain-right { right: 0; border-left: 2px solid #eee; }
+    .curtain-wrapper.revealed .curtain-left  { transform: translateX(-100%); }
+    .curtain-wrapper.revealed .curtain-right { transform: translateX(100%); }
+    .curtain-hint {
+      font-family: 'Patrick Hand', cursive;
+      font-size: 1rem;
+      color: var(--red);
+      margin-top: 12px;
+      position: relative; z-index: 2;
+      font-weight: 700;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+
+    /* ===================== PHOTO 4: 3D TILT (restaurant) ===================== */
+    #photo4 { background: var(--cream); }
+    .tilt-card {
+      width: min(92vw,460px);
+      border-radius: 24px;
+      overflow: hidden;
+      border: 4px solid var(--black);
+      box-shadow: 10px 10px 0 var(--black);
+      cursor: none;
+      transform-style: preserve-3d;
+      transition: box-shadow 0.3s ease;
+      z-index: 2;
+      position: relative;
+    }
+    .tilt-card img { width: 100%; display: block; pointer-events: none; }
+    .tilt-shine {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.25), transparent 60%);
+      pointer-events: none;
+      z-index: 5;
+      transition: background 0.1s ease;
+    }
+    .fork-emoji {
+      display: inline-block;
+      font-size: 2rem;
+      animation: forkWave 1s ease-in-out infinite alternate;
+    }
+    @keyframes forkWave {
+      from { transform: rotate(-20deg); }
+      to   { transform: rotate(20deg); }
+    }
+
+    /* ===================== PHOTO 5: SPOTLIGHT (close-up) ===================== */
+    #photo5 { background: var(--white); }
+    .spotlight-wrapper {
+      position: relative;
+      width: min(92vw, 420px);
+      border-radius: 50%;
+      overflow: hidden;
+      border: 5px solid var(--black);
+      box-shadow: 0 0 0 8px var(--yellow), 0 0 0 12px var(--black), 12px 12px 0 12px var(--black);
+      cursor: crosshair;
+      z-index: 2;
+      aspect-ratio: 1;
+    }
+    .spotlight-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: filter 0.3s ease;
+      filter: grayscale(40%) brightness(0.9);
+    }
+    .spotlight-wrapper:hover img { filter: grayscale(0%) brightness(1.05); }
+    .spotlight-mask {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mx,50%) var(--my,50%), transparent 30%, rgba(0,0,0,0.7) 70%);
+      pointer-events: none;
+      z-index: 3;
+      transition: background 0.05s ease;
+    }
+    .star-orbit {
+      position: absolute;
+      inset: -20px;
+      z-index: 1;
+      animation: orbitStar 6s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes orbitStar { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    .orbit-star {
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.8rem;
+      filter: drop-shadow(0 0 8px rgba(255,215,0,0.9));
+    }
+
+    /* ===================== PHOTO 6: COMIC PANEL (eating pasta) ===================== */
+    #photo6 { background: var(--cream); }
+    .comic-panel {
+      position: relative;
+      width: min(92vw, 500px);
+      border: 5px solid var(--black);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 10px 10px 0 var(--black);
+      cursor: pointer;
+      z-index: 2;
+      background: white;
+    }
+    .comic-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.03) 10px, rgba(0,0,0,0.03) 20px);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .comic-panel img { width: 100%; display: block; position: relative; z-index: 0; }
+    .speech-bubble {
+      position: absolute;
+      top: 14px; right: 14px;
+      background: white;
+      border: 3px solid var(--black);
+      border-radius: 16px;
+      padding: 10px 14px;
+      font-family: 'Patrick Hand', cursive;
+      font-size: 1rem;
+      font-weight: 700;
+      z-index: 10;
+      box-shadow: 3px 3px 0 var(--black);
+      animation: bubblePop 1.8s ease-in-out infinite;
+      max-width: 160px;
+      text-align: center;
+    }
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -14px; left: 20px;
+      width: 0; height: 0;
+      border-left: 10px solid transparent;
+      border-right: 0 solid transparent;
+      border-top: 14px solid var(--black);
+    }
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      bottom: -10px; left: 22px;
+      width: 0; height: 0;
+      border-left: 8px solid transparent;
+      border-right: 0 solid transparent;
+      border-top: 11px solid white;
+      z-index: 1;
+    }
+    @keyframes bubblePop {
+      0%,100% { transform: scale(1) rotate(-2deg); }
+      50%      { transform: scale(1.07) rotate(2deg); }
+    }
+    .comic-bang {
+      position: absolute;
+      bottom: 10px; left: 10px;
+      background: var(--yellow);
+      border: 3px solid var(--black);
+      font-family: 'Pacifico', cursive;
+      font-size: 1.3rem;
+      padding: 6px 14px;
+      border-radius: 4px;
+      z-index: 10;
+      transform: rotate(-4deg);
+      box-shadow: 3px 3px 0 var(--black);
+    }
+    .comic-bubbles { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 16px; position: relative; z-index: 2; }
+    .comic-tag {
+      background: white;
+      border: 2.5px solid var(--black);
+      border-radius: 12px;
+      font-family: 'Patrick Hand', cursive;
+      font-size: 1rem;
+      padding: 6px 16px;
+      box-shadow: 3px 3px 0 var(--black);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .comic-tag:hover { background: var(--yellow); transform: translateY(-3px) rotate(2deg); }
+
+    /* ===================== PHOTO 7: CAROUSEL (couple laughing) ===================== */
+    #photo7 { background: var(--white); }
+    .carousel-wrap {
+      position: relative;
+      width: min(92vw, 520px);
+      overflow: hidden;
+      border-radius: 24px;
+      border: 4px solid var(--black);
+      box-shadow: 10px 10px 0 var(--black);
+      z-index: 2;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.77,0,0.175,1);
+    }
+    .carousel-slide { min-width: 100%; position: relative; }
+    .carousel-slide img { width: 100%; display: block; height: 420px; object-fit: cover; }
+    .carousel-slide-caption {
+      position: absolute; bottom:0; left:0; right:0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.75));
+      color: white;
+      font-family: 'Pacifico', cursive;
+      font-size: 1.1rem;
+      padding: 20px 16px 14px;
+      text-align: center;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: white;
+      border: 3px solid var(--black);
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      cursor: pointer;
+      z-index: 10;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 3px 3px 0 var(--black);
+      transition: all 0.2s ease;
+      font-weight: 900;
+    }
+    .carousel-btn:hover { background: var(--yellow); transform: translateY(-50%) scale(1.1); }
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
+    .carousel-dots { display: flex; gap: 8px; justify-content: center; margin-top: 14px; z-index: 2; }
+    .c-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--black);
+      opacity: 0.2;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .c-dot.active { opacity: 1; transform: scale(1.3); }
+
+    /* ===================== REASONS ===================== */
+    #reasons { background: var(--white); }
+    .reasons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      max-width: 900px;
+      width: 100%;
+      position: relative; z-index: 2;
+      margin-top: 24px;
+    }
+    .reason-card {
+      background: white;
+      border: 3px solid var(--black);
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+      box-shadow: 4px 4px 0 var(--black);
+      transition: all 0.25s ease;
+      cursor: default;
+    }
+    .reason-card:hover {
+      transform: translate(-4px,-4px);
+      box-shadow: 8px 8px 0 var(--black);
+      background: var(--yellow);
+    }
+    .reason-card.red:hover { background: #ffe0e0; }
+    .reason-card.sky:hover { background: var(--sky); }
+    .reason-emoji { font-size: 2.2rem; display: block; margin-bottom: 8px; }
+    .reason-text { font-size: 0.95rem; font-weight: 700; color: var(--black); }
+
+    /* ===================== FINAL ===================== */
+    #final { background: var(--white); text-align: center; }
+    #final .sec-title, #final .sec-text, #final .sec-label { color: var(--black); }
+    #final .sec-title span { color: var(--yellow); }
+
+    .final-frame {
+      position: relative;
+      width: min(90vw, 460px);
+      margin: 30px auto;
+      z-index: 2;
+    }
+    .final-img {
+      width: 100%;
+      border-radius: 28px;
+      border: 5px solid white;
+      display: block;
+      box-shadow: 0 0 0 6px var(--yellow), 0 0 0 10px white, 16px 16px 0 var(--yellow);
+      transition: transform 0.5s ease;
+      cursor: pointer;
+    }
+    .final-img:hover { transform: scale(1.03) rotate(-1deg); }
+
+    .final-snoopy-star {
+      position: absolute;
+      top: -50px; right: -40px;
+      font-size: 5rem;
+      animation: starFloat 2.5s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(255,215,0,0.8));
+    }
+    @keyframes starFloat {
+      0%,100% { transform: translateY(0) rotate(-10deg); }
+      50%      { transform: translateY(-20px) rotate(10deg); }
+    }
+
+    .final-love-btn {
+      background: var(--yellow);
+      border: 3px solid white;
+      border-radius: 999px;
+      color: var(--black);
+      font-family: 'Pacifico', cursive;
+      font-size: 1.3rem;
+      padding: 18px 50px;
+      cursor: pointer;
+      margin-top: 24px;
+      position: relative; z-index: 2;
+      transition: all 0.3s ease;
+      box-shadow: 6px 6px 0 white;
+    }
+    .final-love-btn:hover {
+      transform: translate(-3px,-3px);
+      box-shadow: 9px 9px 0 white;
+    }
+    .final-love-btn:active { transform: translate(0,0); box-shadow: 3px 3px 0 white; }
+
+    /* ===================== HEARTS RAIN ===================== */
+    #heart-rain {
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 99999;
+    }
+    .rain-item {
+      position: absolute;
+      top: -60px;
+      font-size: 1.8rem;
+      animation: rainFall linear forwards;
+      pointer-events: none;
+    }
+    @keyframes rainFall {
+      to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ===================== CURSOR SPARKLES ===================== */
+    .cursor-spark {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99998;
+      font-size: 1.2rem;
+      transition: all 0.7s ease;
+      transform: translate(-50%,-50%);
+    }
+
+    /* ===================== PROGRESS BAR ===================== */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--yellow), var(--red));
+      z-index: 1001;
+      transition: width 0.2s ease;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { opacity:0; animation: fadeInUp 0.8s ease forwards; }
+
+    @media(max-width:640px) {
+      .top-nav { padding: 10px 16px; }
+      .nav-links { display: none; }
+      .white-card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- =================== VIDEO HERO =================== -->
+<div id="video-hero">
+  <video id="hero-video" autoplay muted playsinline>
+    <source src="Snoopy_Branco_Para_Site.mp4" type="video/mp4" />
+  </video>
+  <button class="hero-enter-btn" id="enter-btn" onclick="enterSite()">
+    🐾 Entrar no mundo do Dengo
+  </button>
+</div>
+
+<!-- =================== PROGRESS BAR =================== -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- =================== HEART RAIN =================== -->
+<div id="heart-rain"></div>
+
+<!-- =================== NAV =================== -->
+<nav class="top-nav">
+  <div class="nav-logo">🐾 Para o Dengo</div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="scrollTo('intro')">Início</button>
+    <button class="nav-link" onclick="scrollTo('photo1')">Memórias</button>
+    <button class="nav-link" onclick="scrollTo('reasons')">Por quê</button>
+    <button class="nav-link" onclick="scrollTo('final')">Final ✨</button>
+  </div>
+</nav>
+
+<!-- =================== SECTION: INTRO =================== -->
+<section id="intro">
+  <div class="paw-bg"></div>
+  <img src="snoop_classic.png" alt="Snoopy" class="snoopy-float" style="width:180px; top:40px; right:5%; opacity:0.85;" />
+  <img src="snoop_standing.png" alt="Snoopy Standing" class="snoopy-float" style="width:150px; bottom:60px; left:5%;" />
+
+  <div class="white-card fade-in" style="text-align:center;">
+    <p class="sec-label">🐾 Uma história de amor</p>
+    <h2 class="sec-title">Tem amor maior<br/>do que <span>o nosso?</span></h2>
+    <div class="comic-divider"><span>🐾</span></div>
+    <p class="sec-text">
+      Existe uma pessoa nesse mundo que faz meu coração dar pulos de alegria
+      — igual o Snoopy quando está animado! 🐶<br/><br/>
+      Que transforma cada dia cinza em algo colorido, cheio de vida e de afeto.<br/><br/>
+      <strong>Essa pessoa é você, meu dengo. 🥹</strong>
+    </p>
+    <div class="comic-divider" style="margin-top:20px;">
+      <span>🌟</span>
+    </div>
+    <button class="final-love-btn" style="background:var(--black);color:white;border-color:var(--black);box-shadow:6px 6px 0 var(--yellow);" onclick="rainHearts()">
+      💌 Me dê um coração
+    </button>
+  </div>
+</section>
+
+<!-- =================== PHOTO 1: PARALLAX (neon club) =================== -->
+<section id="photo1">
+  <p class="sec-label" style="color:var(--yellow);">📸 Memória 1 de 7</p>
+  <h2 class="sec-title" style="color:white;">A gente <span>brilha</span> juntos 🌟</h2>
+  <p class="sec-text" style="color:rgba(255,255,255,0.85); margin-bottom:24px;">
+    Mova o mouse na foto e veja a mágica acontecer ✨
+  </p>
+  <div class="parallax-scene" id="parallaxScene" onmousemove="parallaxMove(event)" onmouseleave="parallaxReset()">
+    <img src="FOTOS DENGO/WhatsApp Image 2026-03-17 at 14.04.47.jpeg" id="parallaxImg" alt="Nós dois" />
+    <div class="parallax-overlay">
+      <div class="parallax-caption">💫 A gente brilha em qualquer lugar</div>
+    </div>
+  </div>
+  <div style="margin-top:24px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center; position:relative; z-index:2;">
+    <span class="neon-tag pink">🌸 Juntos</span>
+    <span class="neon-tag cyan">✨ Sorrindo</span>
+    <span class="neon-tag gold">🌟 Brilhando</span>
+  </div>
+</section>
+
+<!-- =================== PHOTO 2: POLAROID FLIP (childhood) =================== -->
+<section id="photo2">
+  <p class="sec-label">📸 Memória 2 de 7</p>
+  <h2 class="sec-title">Você já foi <span>dengo</span> desde pequena! 🥺</h2>
+  <div class="polaroid-scene" id="polaroid" onclick="flipPolaroid()">
+    <div class="polaroid-inner" id="polaroidInner">
+      <div class="polaroid-front">
+        <img src="FOTOS DENGO/WhatsApp Image 2026-03-17 at 14.04.48 (1).jpeg" alt="Foto infância" />
+        <div class="polaroid-label">🥺 Olha ela…</div>
+      </div>
+      <div class="polaroid-back">
+        <div class="back-title">🐾 Meu Dengo!</div>
+        <p>Você já era a pessoa mais fofa do mundo antes mesmo de me conhecer 💛</p>
+      </div>
+    </div>
+  </div>
+  <p class="flip-hint">👆 Clique para virar a foto!</p>
+</section>
+
+<!-- =================== PHOTO 3: HEART CURTAIN (kiss on grass) =================== -->
+<section id="photo3">
+  <p class="sec-label" style="color:var(--red);">📸 Memória 3 de 7</p>
+  <h2 class="sec-title">O melhor <span>beijinho</span> do mundo 💋</h2>
+  <p class="sec-text" style="margin-bottom:20px;">Tem uma surpresa escondida aí... 👀</p>
+
+  <div class="curtain-wrapper" id="curtain" onclick="revealCurtain()">
+    <img src="FOTOS DENGO/WhatsApp Image 2026-03-17 at 14.04.48 (2).jpeg" alt="Beijo" />
+    <div class="curtain-left">💗</div>
+    <div class="curtain-right">💗</div>
+  </div>
+  <p class="curtain-hint" id="curtainHint">👆 Toque para revelar!</p>
+</section>
+
+<!-- =================== PHOTO 4: 3D TILT (restaurant) =================== -->
+<section id="photo4">
+  <div class="paw-bg"></div>
+  <p class="sec-label">📸 Memória 4 de 7</p>
+  <h2 class="sec-title">Comida fica mais <span>gostosa</span> do seu lado 🍽️</h2>
+  <p class="sec-text" style="margin-bottom:20px;">Passe o mouse na foto para um efeito 3D! <span class="fork-emoji">🍴</span></p>
+
+  <div class="tilt-card" id="tiltCard" onmousemove="tiltMove(event)" onmouseleave="tiltReset()">
+    <img src="FOTOS DENGO/WhatsApp Image 2026-03-17 at 14.04.48.jpeg" alt="Restaurante" />
+    <div class="tilt-shine" id="tiltShine"></div>
+  </div>
+</section>
+
+<!-- =================== PHOTO 5: SPOTLIGHT (close-up) =================== -->
+<section id="photo5">
+  <p class="sec-label" style="color:#7c3aed;">📸 Memória 5 de 7</p>
+  <h2 class="sec-title">Você descansando é <span>a coisa mais bonita</span> 😍</h2>
+  <p class="sec-text" style="margin-bottom:24px;">Mova o mouse para o spotlight te seguir ✨</p>
+
+  <div style="position:relative; z-index:2; display:inline-block;">
+    <div class="star-orbit">
+      <img src="snoop.png" class="orbit-star" style="width:60px;height:auto;" onerror="this.outerHTML='<span class=\'orbit-star\'>⭐</span>'" />
+    </div>
+    <div class="spotlight-wrapper" id="spotlightWrap" onmousemove="spotlightMove(event)" onmouseleave="spotlightReset()">
+      <img src="FOTOS DENGO/WhatsApp Image 2026-03-17 at 14.04.49 (1).jpeg" alt="Close up" />
+      <div class="spotlight-mask" id="spotlightMask"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== PHOTO 6: COMIC (eating pasta) =================== -->
+<section id="photo6">
+  <p class="sec-label">📸 Memória 6 de 7</p>
+  <h2 class="sec-title" style="font-size:clamp(1.8rem,4vw,3rem);">Até comendo você é <span style="color:var(--red);">incrível!</span> 🍝</h2>
+
+  <div class="comic-panel" id="comicPanel" onclick="comicClick()">
+    <img src="FOTOS DENGO/WhatsApp Image 2026-03-17 at 14.04.49 (2).jpeg" alt="Comendo macarrão" />
+    <div class="speech-bubble" id="speechBubble">Hmm… tá bom demais! 😋</div>
+    <div class="comic-bang">🍝 NOM!</div>
+  </div>
+
+  <div class="comic-bubbles">
+    <div class="comic-tag">Chef 👨‍🍳</div>
+    <div class="comic-tag">Faminta 😂</div>
+    <div class="comic-tag">Rainha 👑</div>
+    <div class="comic-tag">Perfeita 💛</div>
+  </div>
+  <img src="snoop_woodstock.png" alt="Snoopy Woodstock" class="snoopy-float" style="width:140px; bottom:20px; left:10%;" />
+  <img src="snoop_vampire.png" alt="Snoopy Vampire" class="snoopy-float" style="width:130px; top:30px; right:10%;" />
+</section>
+
+<!-- =================== PHOTO 7: CAROUSEL =================== -->
+<section id="photo7">
+  <div class="paw-bg"></div>
+  <p class="sec-label">📸 Memória 7 de 7</p>
+  <h2 class="sec-title">A <span>risada</span> mais gostosa do mundo 😂</h2>
+
+  <div class="carousel-wrap" style="position:relative;">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-slide">
+        <img src="FOTOS DENGO/WhatsApp Image 2026-03-17 at 14.04.49.jpeg" alt="Risada 1" />
+        <div class="carousel-slide-caption">😂 Essa risada é minha música favorita</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="FOTOS DENGO/WhatsApp Image 2026-03-17 at 14.04.48 (2).jpeg" alt="Beijinho" />
+        <div class="carousel-slide-caption">💋 O beijinho que guardo no coração</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="FOTOS DENGO/WhatsApp Image 2026-03-17 at 14.04.47.jpeg" alt="Neon" />
+        <div class="carousel-slide-caption">✨ Em qualquer luz você brilha</div>
+      </div>
+    </div>
+    <button class="carousel-btn prev" onclick="carouselMove(-1)">‹</button>
+    <button class="carousel-btn next" onclick="carouselMove(1)">›</button>
+  </div>
+  <div class="carousel-dots" id="carouselDots"></div>
+</section>
+
+<!-- =================== REASONS =================== -->
+<section id="reasons">
+  <div class="paw-bg"></div>
+  <img src="snoop_joe_cool.png" alt="Snoopy Joe Cool" class="snoopy-float" style="width:220px; top:20px; left:5%;" />
+  <img src="snoop_hug.jpg" alt="Snoopy Hug" class="snoopy-float" style="width:180px; bottom:20px; right:5%;" />
+  <p class="sec-label">🐾 Do fundo do coração</p>
+  <h2 class="sec-title">Por que eu te <span>amo</span></h2>
+  <div class="comic-divider"><span>💛</span></div>
+
+  <div class="reasons-grid">
+    <div class="reason-card sky"><span class="reason-emoji">😂</span><p class="reason-text">Sua risada é a música mais bonita que já ouvi</p></div>
+    <div class="reason-card"><span class="reason-emoji">🫂</span><p class="reason-text">Seu abraço faz o mundo parar de girar</p></div>
+    <div class="reason-card red"><span class="reason-emoji">💪</span><p class="reason-text">Você é a pessoa mais forte que conheço</p></div>
+    <div class="reason-card sky"><span class="reason-emoji">🧠</span><p class="reason-text">Você é brilhante e isso me encanta</p></div>
+    <div class="reason-card"><span class="reason-emoji">🍝</span><p class="reason-text">Come macarrão com um estilo incrível 😍</p></div>
+    <div class="reason-card red"><span class="reason-emoji">🌟</span><p class="reason-text">Você ilumina qualquer ambiente que entra</p></div>
+    <div class="reason-card sky"><span class="reason-emoji">🥺</span><p class="reason-text">Seu jeito de olhar pra mim me derrete</p></div>
+    <div class="reason-card"><span class="reason-emoji">🌙</span><p class="reason-text">Com você qualquer lugar vira lar</p></div>
+    <div class="reason-card red"><span class="reason-emoji">🐾</span><p class="reason-text">Você amou o Snoopy como ele merecia</p></div>
+  </div>
+</section>
+
+<!-- =================== FINAL =================== -->
+<section id="final">
+  <img src="snoop_star.png" alt="Snoopy Star" class="snoopy-float" style="width:200px; bottom:20px; right:5%;" />
+  <p class="sec-label">🌟 A foto que vale tudo</p>
+  <h2 class="sec-title">Para sempre com <span>você</span> 💛</h2>
+  <p class="sec-text" style="color:rgba(255,255,255,0.8);">
+    Clique na foto para a surpresa final! ✨
+  </p>
+
+  <div class="final-frame">
+    <img class="final-img" src="FOTOS DENGO/WhatsApp Image 2026-03-17 at 14.04.50.jpeg" alt="Nossa foto final" onclick="bigFinale()" />
+  </div>
+
+  <button class="final-love-btn" onclick="bigFinale()">
+    🐾 EU TE AMO, MEU DENGO! 💛
+  </button>
+
+  <p style="color:rgba(255,255,255,0.4); margin-top:40px; font-size:0.85rem; position:relative; z-index:2;">
+    feito com 🐾 e muito amor
+  </p>
+</section>
+
+<!-- =================== SCRIPTS =================== -->
+<script>
+  // ── VIDEO HERO ──────────────────────────────────────────
+  const heroVideo  = document.getElementById('hero-video');
+  const enterBtn   = document.getElementById('enter-btn');
+  const videoHero  = document.getElementById('video-hero');
+
+  // Show button after 1s
+  setTimeout(() => { enterBtn.style.display = 'inline-block'; }, 1000);
+
+  // Also show button when video ends
+  heroVideo.addEventListener('ended', () => { enterBtn.style.display = 'inline-block'; });
+
+  function enterSite() {
+    videoHero.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+  }
+
+  // ── PROGRESS BAR ────────────────────────────────────────
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    document.getElementById('progressBar').style.width = `${(scrolled / maxScroll) * 100}%`;
+  });
+
+  // ── SECTION NAV ────────────────────────────────────
+  function scrollTo(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  }
+
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sectionIds = ['intro','photo1','photo2','photo3','photo4','photo5','photo6','photo7','reasons','final'];
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = sectionIds.indexOf(e.target.id);
+        navLinks.forEach(l => l.classList.remove('active'));
+        if (idx <= 1) navLinks[0]?.classList.add('active');
+        else if (idx <= 7) navLinks[1]?.classList.add('active');
+        else if (idx === 8) navLinks[2]?.classList.add('active');
+        else navLinks[3]?.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+  sectionIds.forEach(id => { const el = document.getElementById(id); if(el) obs.observe(el); });
+
+  // ── HEART RAIN ──────────────────────────────────────────
+  const rainEl = document.getElementById('heart-rain');
+  const rainItems = ['💛','🐾','⭐','💙','🌟','💗','🤍','✨','🐶'];
+
+  function rainHearts(count = 50) {
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => {
+        const el = document.createElement('div');
+        el.className = 'rain-item';
+        el.textContent = rainItems[Math.floor(Math.random() * rainItems.length)];
+        el.style.left = `${Math.random() * 100}%`;
+        el.style.fontSize = `${Math.random() * 1.5 + 1}rem`;
+        const dur = Math.random() * 2 + 1.5;
+        el.style.animation = `rainFall ${dur}s linear forwards`;
+        rainEl.appendChild(el);
+        setTimeout(() => el.remove(), dur * 1000 + 300);
+      }, i * 70);
+    }
+  }
+
+  // ── CURSOR SPARKLES ─────────────────────────────────────
+  const sparkItems = ['🐾','✨','💛','⭐','🌟'];
+  document.addEventListener('click', e => {
+    for (let i = 0; i < 5; i++) {
+      const s = document.createElement('div');
+      s.className = 'cursor-spark';
+      s.textContent = sparkItems[Math.floor(Math.random() * sparkItems.length)];
+      s.style.left = `${e.clientX}px`;
+      s.style.top  = `${e.clientY}px`;
+      document.body.appendChild(s);
+      const angle = (Math.random() * 360) * Math.PI / 180;
+      const dist  = Math.random() * 70 + 30;
+      requestAnimationFrame(() => {
+        s.style.transform = `translate(calc(-50% + ${Math.cos(angle)*dist}px), calc(-50% + ${Math.sin(angle)*dist}px)) scale(0)`;
+        s.style.opacity = '0';
+      });
+      setTimeout(() => s.remove(), 750);
+    }
+  });
+
+  // ── PARALLAX (Photo 1) ──────────────────────────────────
+  function parallaxMove(e) {
+    const rect  = document.getElementById('parallaxScene').getBoundingClientRect();
+    const xPct  = (e.clientX - rect.left)  / rect.width  - 0.5;
+    const yPct  = (e.clientY - rect.top)   / rect.height - 0.5;
+    document.getElementById('parallaxImg').style.transform =
+      `scale(1.08) translate(${xPct * -18}px, ${yPct * -18}px)`;
+  }
+  function parallaxReset() {
+    document.getElementById('parallaxImg').style.transform = '';
+  }
+
+  // ── POLAROID FLIP (Photo 2) ─────────────────────────────
+  function flipPolaroid() {
+    document.getElementById('polaroid').classList.toggle('flipped');
+    rainHearts(15);
+  }
+
+  // ── CURTAIN REVEAL (Photo 3) ────────────────────────────
+  function revealCurtain() {
+    const c = document.getElementById('curtain');
+    c.classList.toggle('revealed');
+    if (c.classList.contains('revealed')) {
+      document.getElementById('curtainHint').textContent = '💋 O melhor beijinho!';
+      rainHearts(25);
+    } else {
+      document.getElementById('curtainHint').textContent = '👆 Toque para revelar!';
+    }
+  }
+
+  // ── 3D TILT (Photo 4) ──────────────────────────────────
+  const tiltCard  = document.getElementById('tiltCard');
+  const tiltShine = document.getElementById('tiltShine');
+  function tiltMove(e) {
+    const rect = tiltCard.getBoundingClientRect();
+    const xPct = (e.clientX - rect.left)  / rect.width;
+    const yPct = (e.clientY - rect.top)   / rect.height;
+    const rotX = (yPct - 0.5) * -20;
+    const rotY = (xPct - 0.5) * 20;
+    tiltCard.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03)`;
+    tiltCard.style.boxShadow = `${-rotY*0.8}px ${rotX*0.8}px 0 var(--black)`;
+    tiltShine.style.setProperty('--mx', `${xPct*100}%`);
+    tiltShine.style.setProperty('--my', `${yPct*100}%`);
+    tiltShine.style.background = `radial-gradient(circle at ${xPct*100}% ${yPct*100}%, rgba(255,255,255,0.3), transparent 60%)`;
+  }
+  function tiltReset() {
+    tiltCard.style.transform = '';
+    tiltCard.style.boxShadow = '';
+    tiltShine.style.background = '';
+  }
+
+  // ── SPOTLIGHT (Photo 5) ────────────────────────────────
+  function spotlightMove(e) {
+    const wrap = document.getElementById('spotlightWrap');
+    const rect = wrap.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
+    const y = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1);
+    document.getElementById('spotlightMask').style.background =
+      `radial-gradient(circle at ${x}% ${y}%, transparent 28%, rgba(0,0,0,0.72) 65%)`;
+  }
+  function spotlightReset() {
+    document.getElementById('spotlightMask').style.background = '';
+  }
+
+  // ── COMIC PANEL (Photo 6) ──────────────────────────────
+  const comicLines = [
+    'Hmm… tá bom demais! 😋',
+    'Mais um pouquinho! 🍝',
+    'Ninguém me para! 😤',
+    'Chef suprema! 👑',
+    'Saborosa vibe! ✨',
+    'POW! Delícia!! 💥'
+  ];
+  let comicIdx = 0;
+  function comicClick() {
+    comicIdx = (comicIdx + 1) % comicLines.length;
+    document.getElementById('speechBubble').textContent = comicLines[comicIdx];
+    rainHearts(10);
+  }
+
+  // ── CAROUSEL (Photo 7) ────────────────────────────────
+  let carouselIndex = 0;
+  const carouselSlides = 3;
+  const track = document.getElementById('carouselTrack');
+  const dotsWrap = document.getElementById('carouselDots');
+
+  for (let i = 0; i < carouselSlides; i++) {
+    const d = document.createElement('div');
+    d.className = 'c-dot' + (i===0 ? ' active' : '');
+    d.onclick = () => gotoSlide(i);
+    dotsWrap.appendChild(d);
+  }
+
+  function gotoSlide(i) {
+    carouselIndex = (i + carouselSlides) % carouselSlides;
+    track.style.transform = `translateX(-${carouselIndex * 100}%)`;
+    document.querySelectorAll('.c-dot').forEach((d,j) => d.classList.toggle('active', j===carouselIndex));
+  }
+  function carouselMove(dir) { gotoSlide(carouselIndex + dir); }
+
+  // Auto-advance carousel
+  setInterval(() => gotoSlide(carouselIndex + 1), 4000);
+
+  // Touch/swipe for carousel
+  let touchStartX = null;
+  const cWrap = document.querySelector('.carousel-wrap');
+  cWrap.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+  cWrap.addEventListener('touchend', e => {
+    if (touchStartX === null) return;
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) carouselMove(diff > 0 ? 1 : -1);
+    touchStartX = null;
+  });
+
+  // ── BIG FINALE ────────────────────────────────────────
+  function bigFinale() {
+    rainHearts(100);
+    const finalImg = document.querySelector('.final-img');
+    finalImg.style.animation = 'none';
+    finalImg.style.transform = 'scale(1.1) rotate(-3deg)';
+    setTimeout(() => { finalImg.style.transform = ''; finalImg.style.animation = ''; }, 600);
+  }
+
+  // ── SCROLL-TRIGGERED FADE IN ─────────────────────────
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const fadeObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.style.animationDelay = '0s'; e.target.style.opacity = '1'; }
+    });
+  }, { threshold: 0.2 });
+  fadeEls.forEach(el => fadeObs.observe(el));
+
+  // ── KEYBOARD SHORTCUTS ───────────────────────────────
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !videoHero.classList.contains('hidden')) enterSite();
+    if (e.key === 'ArrowRight') carouselMove(1);
+    if (e.key === 'ArrowLeft') carouselMove(-1);
+  });
+</script>
+</body>
+</html>
