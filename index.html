@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para o Meu Dengo 🐾</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800;900&family=Dancing+Script:wght@700&family=Patrick+Hand&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body>
+
+<!-- =================== VIDEO HERO =================== -->
+<div id="video-hero">
+  <video id="hero-video" autoplay muted playsinline>
+    <source src="/Snoopy_Branco_Para_Site.mp4" type="video/mp4" />
+  </video>
+  <button class="hero-enter-btn" id="enter-btn" onclick="enterSite()">
+    🐾 Entrar no mundo do Dengo
+  </button>
+</div>
+
+<!-- =================== PROGRESS BAR =================== -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- =================== HEART RAIN =================== -->
+<div id="heart-rain"></div>
+
+<!-- =================== NAV =================== -->
+<nav class="top-nav">
+  <div class="nav-logo">🐾 Para o Dengo</div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="scrollToSection('intro')">Início</button>
+    <button class="nav-link" onclick="scrollToSection('photo1')">Memórias</button>
+    <button class="nav-link" onclick="scrollToSection('reasons')">Por quê</button>
+    <button class="nav-link" onclick="scrollToSection('final')">Final ✨</button>
+  </div>
+</nav>
+
+<!-- =================== SECTION: INTRO =================== -->
+<section id="intro">
+  <div class="paw-bg"></div>
+  <img src="/src/assets/snoop_classic.png" alt="Snoopy" class="snoopy-float" style="width:180px; top:40px; right:5%; opacity:0.85;" />
+  <img src="/src/assets/snoop_standing.png" alt="Snoopy Standing" class="snoopy-float" style="width:150px; bottom:60px; left:5%;" />
+
+  <div class="white-card fade-in" style="text-align:center;">
+    <p class="sec-label">🐾 Uma história de amor</p>
+    <h2 class="sec-title">Tem amor maior<br/>do que <span>o nosso?</span></h2>
+    <div class="comic-divider"><span>🐾</span></div>
+    <p class="sec-text">
+      Existe uma pessoa nesse mundo que faz meu coração dar pulos de alegria
+      — igual o Snoopy quando está animado! 🐶<br/><br/>
+      Que transforma cada dia cinza em algo colorido, cheio de vida e de afeto.<br/><br/>
+      <strong>Essa pessoa é você, meu dengo. 🥹</strong>
+    </p>
+    <div class="comic-divider" style="margin-top:20px;">
+      <span>🌟</span>
+    </div>
+    <button class="final-love-btn" style="background:var(--black);color:white;border-color:var(--black);box-shadow:6px 6px 0 var(--yellow);" onclick="rainHearts()">
+      💌 Me dê um coração
+    </button>
+  </div>
+</section>
+
+<!-- =================== PHOTO 1: PARALLAX (neon club) =================== -->
+<section id="photo1">
+  <p class="sec-label" style="color:var(--yellow);">📸 Memória 1 de 7</p>
+  <h2 class="sec-title" style="color:white;">A gente <span>brilha</span> juntos 🌟</h2>
+  <p class="sec-text" style="color:rgba(255,255,255,0.85); margin-bottom:24px;">
+    Mova o mouse na foto e veja a mágica acontecer ✨
+  </p>
+  <div class="parallax-scene" id="parallaxScene" onmousemove="parallaxMove(event)" onmouseleave="parallaxReset()">
+    <img src="/src/assets/fotos/WhatsApp Image 2026-03-17 at 14.04.47.jpeg" id="parallaxImg" alt="Nós dois" />
+    <div class="parallax-overlay">
+      <div class="parallax-caption">💫 A gente brilha em qualquer lugar</div>
+    </div>
+  </div>
+  <div style="margin-top:24px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center; position:relative; z-index:2;">
+    <span class="neon-tag pink">🌸 Juntos</span>
+    <span class="neon-tag cyan">✨ Sorrindo</span>
+    <span class="neon-tag gold">🌟 Brilhando</span>
+  </div>
+</section>
+
+<!-- =================== PHOTO 2: POLAROID FLIP (childhood) =================== -->
+<section id="photo2">
+  <p class="sec-label">📸 Memória 2 de 7</p>
+  <h2 class="sec-title">Você já foi <span>dengo</span> desde pequena! 🥺</h2>
+  <div class="polaroid-scene" id="polaroid" onclick="flipPolaroid()">
+    <div class="polaroid-inner" id="polaroidInner">
+      <div class="polaroid-front">
+        <img src="/src/assets/fotos/WhatsApp Image 2026-03-17 at 14.04.48 (1).jpeg" alt="Foto infância" />
+        <div class="polaroid-label">🥺 Olha ela…</div>
+      </div>
+      <div class="polaroid-back">
+        <div class="back-title">🐾 Meu Dengo!</div>
+        <p>Você já era a pessoa mais fofa do mundo antes mesmo de me conhecer 💛</p>
+      </div>
+    </div>
+  </div>
+  <p class="flip-hint">👆 Clique para virar a foto!</p>
+</section>
+
+<!-- =================== PHOTO 3: HEART CURTAIN (kiss on grass) =================== -->
+<section id="photo3">
+  <p class="sec-label" style="color:var(--red);">📸 Memória 3 de 7</p>
+  <h2 class="sec-title">O melhor <span>beijinho</span> do mundo 💋</h2>
+  <p class="sec-text" style="margin-bottom:20px;">Tem uma surpresa escondida aí... 👀</p>
+
+  <div class="curtain-wrapper" id="curtain" onclick="revealCurtain()">
+    <img src="/src/assets/fotos/WhatsApp Image 2026-03-17 at 14.04.48 (2).jpeg" alt="Beijo" />
+    <div class="curtain-left">💗</div>
+    <div class="curtain-right">💗</div>
+  </div>
+  <p class="curtain-hint" id="curtainHint">👆 Toque para revelar!</p>
+</section>
+
+<!-- =================== PHOTO 4: 3D TILT (restaurant) =================== -->
+<section id="photo4">
+  <div class="paw-bg"></div>
+  <p class="sec-label">📸 Memória 4 de 7</p>
+  <h2 class="sec-title">Comida fica mais <span>gostosa</span> do seu lado 🍽️</h2>
+  <p class="sec-text" style="margin-bottom:20px;">Passe o mouse na foto para um efeito 3D! <span class="fork-emoji">🍴</span></p>
+
+  <div class="tilt-card" id="tiltCard" onmousemove="tiltMove(event)" onmouseleave="tiltReset()">
+    <img src="/src/assets/fotos/WhatsApp Image 2026-03-17 at 14.04.48.jpeg" alt="Restaurante" />
+    <div class="tilt-shine" id="tiltShine"></div>
+  </div>
+</section>
+
+<!-- =================== PHOTO 5: SPOTLIGHT (close-up) =================== -->
+<section id="photo5">
+  <p class="sec-label" style="color:#7c3aed;">📸 Memória 5 de 7</p>
+  <h2 class="sec-title">Você descansando é <span>a coisa mais bonita</span> 😍</h2>
+  <p class="sec-text" style="margin-bottom:24px;">Mova o mouse para o spotlight te seguir ✨</p>
+
+  <div style="position:relative; z-index:2; display:inline-block;">
+    <div class="star-orbit">
+      <img src="/src/assets/snoop.png" class="orbit-star" style="width:60px;height:auto;" onerror="this.outerHTML='<span class=\'orbit-star\'>⭐</span>'" />
+    </div>
+    <div class="spotlight-wrapper" id="spotlightWrap" onmousemove="spotlightMove(event)" onmouseleave="spotlightReset()">
+      <img src="/src/assets/fotos/WhatsApp Image 2026-03-17 at 14.04.49 (1).jpeg" alt="Close up" />
+      <div class="spotlight-mask" id="spotlightMask"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== PHOTO 6: COMIC (eating pasta) =================== -->
+<section id="photo6">
+  <p class="sec-label">📸 Memória 6 de 7</p>
+  <h2 class="sec-title" style="font-size:clamp(1.8rem,4vw,3rem);">Até comendo você é <span style="color:var(--red);">incrível!</span> 🍝</h2>
+
+  <div class="comic-panel" id="comicPanel" onclick="comicClick()">
+    <img src="/src/assets/fotos/WhatsApp Image 2026-03-17 at 14.04.49 (2).jpeg" alt="Comendo macarrão" />
+    <div class="speech-bubble" id="speechBubble">Hmm… tá bom demais! 😋</div>
+    <div class="comic-bang">🍝 NOM!</div>
+  </div>
+
+  <div class="comic-bubbles">
+    <div class="comic-tag">Chef 👨‍🍳</div>
+    <div class="comic-tag">Faminta 😂</div>
+    <div class="comic-tag">Rainha 👑</div>
+    <div class="comic-tag">Perfeita 💛</div>
+  </div>
+  <img src="/src/assets/snoop_woodstock.png" alt="Snoopy Woodstock" class="snoopy-float" style="width:140px; bottom:20px; left:10%;" />
+  <img src="/src/assets/snoop_vampire.png" alt="Snoopy Vampire" class="snoopy-float" style="width:130px; top:30px; right:10%;" />
+</section>
+
+<!-- =================== PHOTO 7: CAROUSEL =================== -->
+<section id="photo7">
+  <div class="paw-bg"></div>
+  <p class="sec-label">📸 Memória 7 de 7</p>
+  <h2 class="sec-title">A <span>risada</span> mais gostosa do mundo 😂</h2>
+
+  <div class="carousel-wrap" style="position:relative;">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-slide">
+        <img src="/src/assets/fotos/WhatsApp Image 2026-03-17 at 14.04.49.jpeg" alt="Risada 1" />
+        <div class="carousel-slide-caption">😂 Essa risada é minha música favorita</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="/src/assets/fotos/WhatsApp Image 2026-03-17 at 14.04.48 (2).jpeg" alt="Beijinho" />
+        <div class="carousel-slide-caption">💋 O beijinho que guardo no coração</div>
+      </div>
+      <div class="carousel-slide">
+        <img src="/src/assets/fotos/WhatsApp Image 2026-03-17 at 14.04.47.jpeg" alt="Neon" />
+        <div class="carousel-slide-caption">✨ Em qualquer luz você brilha</div>
+      </div>
+    </div>
+    <button class="carousel-btn prev" onclick="carouselMove(-1)">‹</button>
+    <button class="carousel-btn next" onclick="carouselMove(1)">›</button>
+  </div>
+  <div class="carousel-dots" id="carouselDots"></div>
+</section>
+
+<!-- =================== REASONS =================== -->
+<section id="reasons">
+  <div class="paw-bg"></div>
+  <img src="/src/assets/snoop_joe_cool.png" alt="Snoopy Joe Cool" class="snoopy-float" style="width:220px; top:20px; left:5%;" />
+  <img src="/src/assets/snoop_hug.jpg" alt="Snoopy Hug" class="snoopy-float" style="width:180px; bottom:20px; right:5%;" />
+  <p class="sec-label">🐾 Do fundo do coração</p>
+  <h2 class="sec-title">Por que eu te <span>amo</span></h2>
+  <div class="comic-divider"><span>💛</span></div>
+
+  <div class="reasons-grid">
+    <div class="reason-card sky"><span class="reason-emoji">😂</span><p class="reason-text">Sua risada é a música mais bonita que já ouvi</p></div>
+    <div class="reason-card"><span class="reason-emoji">🫂</span><p class="reason-text">Seu abraço faz o world parar de girar</p></div>
+    <div class="reason-card red"><span class="reason-emoji">💪</span><p class="reason-text">Você é a pessoa mais forte que conheço</p></div>
+    <div class="reason-card sky"><span class="reason-emoji">🧠</span><p class="reason-text">Você é brilhante e isso me encanta</p></div>
+    <div class="reason-card"><span class="reason-emoji">🍝</span><p class="reason-text">Como macarrão com um estilo incrível 😍</p></div>
+    <div class="reason-card red"><span class="reason-emoji">🌟</span><p class="reason-text">Você ilumina qualquer ambiente que entra</p></div>
+    <div class="reason-card sky"><span class="reason-emoji">🥺</span><p class="reason-text">Seu jeito de olhar pra mim me derrete</p></div>
+    <div class="reason-card"><span class="reason-emoji">🌙</span><p class="reason-text">Com você qualquer lugar vira lar</p></div>
+    <div class="reason-card red"><span class="reason-emoji">🐾</span><p class="reason-text">Você amou o Snoopy como ele merecia</p></div>
+  </div>
+</section>
+
+<!-- =================== FINAL =================== -->
+<section id="final">
+  <img src="/src/assets/snoop_star.png" alt="Snoopy Star" class="snoopy-float" style="width:200px; bottom:20px; right:5%;" />
+  <p class="sec-label">🌟 A foto que vale tudo</p>
+  <h2 class="sec-title">Para sempre com <span>você</span> 💛</h2>
+  <p class="sec-text" style="color:rgba(255,255,255,0.8);">
+    Clique na foto para a surpresa final! ✨
+  </p>
+
+  <div class="final-frame">
+    <img class="final-img" src="/src/assets/fotos/WhatsApp Image 2026-03-17 at 14.04.50.jpeg" alt="Nossa foto final" onclick="bigFinale()" />
+  </div>
+
+  <button class="final-love-btn" onclick="bigFinale()">
+    🐾 EU TE AMO, MEU DENGO! 💛
+  </button>
+
+  <p style="color:rgba(255,255,255,0.4); margin-top:40px; font-size:0.85rem; position:relative; z-index:2;">
+    feito com 🐾 e muito amor
+  </p>
+</section>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

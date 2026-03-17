@@ -1,0 +1,738 @@
+/* ===================== RESET & ROOT ===================== */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --white:   #FFFFFF;
+  --cream:   #FAFAF7;
+  --black:   #1A1A1A;
+  --yellow:  #FFD700;
+  --yellow2: #FFF176;
+  --red:     #E63946;
+  --sky:     #B3DFF0;
+  --gray:    #F0F0F0;
+  --ink:     #2d2d2d;
+}
+
+body {
+  background: var(--cream);
+  font-family: 'Nunito', sans-serif;
+  color: var(--ink);
+  overflow-x: hidden;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><text y='26' font-size='22'>🐾</text></svg>") 12 12, auto;
+}
+
+#hero-video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-enter-btn {
+  position: absolute;
+  bottom: 50px;
+  z-index: 100;
+  background: var(--black);
+  border: 4px solid var(--black);
+  border-radius: 999px;
+  color: var(--yellow);
+  font-family: 'Pacifico', cursive;
+  font-size: 1.4rem;
+  padding: 18px 52px;
+  cursor: pointer;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  box-shadow: 8px 8px 0 var(--yellow);
+  display: none; /* shows after 1s */
+  animation: heroPulse 2s ease-in-out infinite;
+}
+@keyframes heroPulse {
+  0%, 100% { transform: scale(1); box-shadow: 8px 8px 0 var(--yellow); }
+  50% { transform: scale(1.05); box-shadow: 12px 12px 0 var(--yellow); }
+}
+#video-hero {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+#video-hero.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.hero-enter-btn:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 var(--yellow);
+}
+.hero-enter-btn:active {
+  transform: translate(0, 0);
+  box-shadow: 4px 4px 0 var(--yellow);
+}
+
+/* ===================== NAV ===================== */
+.top-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 3px solid var(--black);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.nav-logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.3rem;
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-links {
+  display: flex;
+  gap: 6px;
+}
+.nav-link {
+  background: none;
+  border: 2px solid var(--black);
+  border-radius: 999px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  color: var(--black);
+}
+.nav-link:hover, .nav-link.active {
+  background: var(--yellow);
+  border-color: var(--black);
+  transform: translateY(-2px);
+}
+
+/* ===================== SECTIONS ===================== */
+section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 24px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===================== SNOOPY DECORATIONS ===================== */
+.snoopy-float {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  animation: floatSnoopy 5s ease-in-out infinite;
+  z-index: 0;
+}
+@keyframes floatSnoopy {
+  0%,100% { transform: translateY(0px) rotate(-3deg); }
+  50%      { transform: translateY(-22px) rotate(3deg); }
+}
+
+/* Paw prints background pattern */
+.paw-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><text x='10' y='50' font-size='30' opacity='0.06'>🐾</text></svg>");
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===================== SECTION TITLES ===================== */
+.sec-label {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 8px;
+  position: relative; z-index: 2;
+}
+.sec-title {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--black);
+  margin-bottom: 18px;
+  position: relative; z-index: 2;
+  text-align: center;
+}
+.sec-title span { color: var(--red); }
+.sec-text {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  line-height: 1.9;
+  color: var(--ink);
+  max-width: 680px;
+  text-align: center;
+  position: relative; z-index: 2;
+}
+
+/* ===================== DIVIDER ===================== */
+.comic-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0;
+  position: relative; z-index: 2;
+}
+.comic-divider span { font-size: 1.5rem; }
+.comic-divider::before, .comic-divider::after {
+  content: '';
+  flex: 1;
+  height: 3px;
+  background: var(--black);
+  border-radius: 2px;
+}
+
+/* ===================== CARD (glass-white) ===================== */
+.white-card {
+  background: white;
+  border: 3px solid var(--black);
+  border-radius: 24px;
+  padding: 40px 44px;
+  box-shadow: 8px 8px 0 var(--black);
+  max-width: 800px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* ===================== SECTION 1: INTRO ===================== */
+#intro { background: var(--white); }
+
+/* ===================== PHOTO 1: PARALLAX (neon club) ===================== */
+#photo1 { background: var(--white); position: relative; overflow: hidden; }
+.parallax-scene {
+  position: relative;
+  width: min(92vw,520px);
+  border-radius: 24px;
+  overflow: hidden;
+  border: 4px solid white;
+  box-shadow: 0 0 0 8px rgba(255,255,255,0.1), 0 20px 60px rgba(0,0,0,0.6);
+  z-index: 2;
+  cursor: crosshair;
+}
+.parallax-scene img {
+  width: 100%;
+  display: block;
+  transform-origin: center;
+  transition: transform 0.1s ease;
+}
+.parallax-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 60%, rgba(0,0,0,0.75));
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+}
+.parallax-caption {
+  color: white;
+  font-family: 'Pacifico', cursive;
+  font-size: 1.2rem;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+}
+#photo1 .sec-title, #photo1 .sec-text, #photo1 .sec-label { color: var(--black); }
+#photo1 .sec-title span { color: var(--yellow); }
+.neon-tag {
+  display: inline-block;
+  font-family: 'Pacifico', cursive;
+  font-size: 0.9rem;
+  padding: 6px 18px;
+  border-radius: 999px;
+  border: 2px solid;
+  margin: 4px;
+  animation: neonGlow 2s ease-in-out infinite alternate;
+}
+.neon-tag.pink  { color: var(--red); border-color: var(--red); box-shadow: 4px 4px 0 rgba(230,57,70,0.2); }
+.neon-tag.cyan  { color: var(--black); border-color: var(--black); box-shadow: 4px 4px 0 var(--yellow); }
+.neon-tag.gold  { color: var(--black); border-color: var(--black); background: var(--yellow); box-shadow: 4px 4px 0 var(--black); }
+@keyframes neonGlow {
+  from { text-shadow: 0 0 10px currentColor; }
+  to   { text-shadow: 0 0 25px currentColor, 0 0 50px currentColor; }
+}
+
+/* ===================== PHOTO 2: POLAROID FLIP (childhood) ===================== */
+#photo2 { background: var(--white); }
+.polaroid-scene {
+  perspective: 1000px;
+  width: 300px;
+  height: 360px;
+  cursor: pointer;
+  z-index: 2;
+}
+.polaroid-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+.polaroid-scene:hover .polaroid-inner,
+.polaroid-scene.flipped .polaroid-inner { transform: rotateY(180deg); }
+.polaroid-front, .polaroid-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 4px;
+  box-shadow: 6px 6px 0 var(--black);
+}
+.polaroid-front {
+  background: white;
+  border: 3px solid var(--black);
+  padding: 10px 10px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.polaroid-front img { width: 100%; flex: 1; object-fit: cover; border-radius: 2px; }
+.polaroid-label {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  padding-top: 8px;
+  text-align: center;
+  color: var(--ink);
+}
+.polaroid-back {
+  background: var(--yellow);
+  border: 3px solid var(--black);
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 24px;
+  text-align: center;
+}
+.polaroid-back .back-title {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.3rem;
+  color: var(--black);
+  margin-bottom: 10px;
+}
+.polaroid-back p {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--black);
+  line-height: 1.7;
+}
+.flip-hint {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 0.9rem;
+  color: var(--black);
+  margin-top: 10px;
+  position: relative; z-index: 2;
+  opacity: 0.7;
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:0.7} 50%{opacity:0.2} }
+
+/* ===================== PHOTO 3: HEART CURTAIN (kiss) ===================== */
+#photo3 { background: var(--cream); }
+.curtain-wrapper {
+  position: relative;
+  width: min(92vw, 480px);
+  border-radius: 24px;
+  overflow: hidden;
+  border: 4px solid var(--black);
+  box-shadow: 8px 8px 0 var(--black);
+  cursor: pointer;
+  z-index: 2;
+}
+.curtain-wrapper img { width: 100%; display: block; }
+.curtain-left, .curtain-right {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  transition: transform 1.2s cubic-bezier(0.77,0,0.175,1);
+  z-index: 3;
+}
+.curtain-left  { left: 0; border-right: 2px solid #eee; }
+.curtain-right { right: 0; border-left: 2px solid #eee; }
+.curtain-wrapper.revealed .curtain-left  { transform: translateX(-100%); }
+.curtain-wrapper.revealed .curtain-right { transform: translateX(100%); }
+.curtain-hint {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  color: var(--red);
+  margin-top: 12px;
+  position: relative; z-index: 2;
+  font-weight: 700;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+/* ===================== PHOTO 4: 3D TILT (restaurant) ===================== */
+#photo4 { background: var(--cream); }
+.tilt-card {
+  width: min(92vw,460px);
+  border-radius: 24px;
+  overflow: hidden;
+  border: 4px solid var(--black);
+  box-shadow: 10px 10px 0 var(--black);
+  cursor: none;
+  transform-style: preserve-3d;
+  transition: box-shadow 0.3s ease;
+  z-index: 2;
+  position: relative;
+}
+.tilt-card img { width: 100%; display: block; pointer-events: none; }
+.tilt-shine {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.25), transparent 60%);
+  pointer-events: none;
+  z-index: 5;
+  transition: background 0.1s ease;
+}
+.fork-emoji {
+  display: inline-block;
+  font-size: 2rem;
+  animation: forkWave 1s ease-in-out infinite alternate;
+}
+@keyframes forkWave {
+  from { transform: rotate(-20deg); }
+  to   { transform: rotate(20deg); }
+}
+
+/* ===================== PHOTO 5: SPOTLIGHT (close-up) ===================== */
+#photo5 { background: var(--white); }
+.spotlight-wrapper {
+  position: relative;
+  width: min(92vw, 420px);
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid var(--black);
+  box-shadow: 0 0 0 8px var(--yellow), 0 0 0 12px var(--black), 12px 12px 0 12px var(--black);
+  cursor: crosshair;
+  z-index: 2;
+  aspect-ratio: 1;
+}
+.spotlight-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.3s ease;
+  filter: grayscale(40%) brightness(0.9);
+}
+.spotlight-wrapper:hover img { filter: grayscale(0%) brightness(1.05); }
+.spotlight-mask {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), transparent 30%, rgba(0,0,0,0.7) 70%);
+  pointer-events: none;
+  z-index: 3;
+  transition: background 0.05s ease;
+}
+.star-orbit {
+  position: absolute;
+  inset: -20px;
+  z-index: 1;
+  animation: orbitStar 6s linear infinite;
+  pointer-events: none;
+}
+@keyframes orbitStar { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+.orbit-star {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.8rem;
+  filter: drop-shadow(0 0 8px rgba(255,215,0,0.9));
+}
+
+/* ===================== PHOTO 6: COMIC PANEL (eating pasta) ===================== */
+#photo6 { background: var(--cream); }
+.comic-panel {
+  position: relative;
+  width: min(92vw, 500px);
+  border: 5px solid var(--black);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 10px 10px 0 var(--black);
+  cursor: pointer;
+  z-index: 2;
+  background: white;
+}
+.comic-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.03) 10px, rgba(0,0,0,0.03) 20px);
+  z-index: 1;
+  pointer-events: none;
+}
+.comic-panel img { width: 100%; display: block; position: relative; z-index: 0; }
+.speech-bubble {
+  position: absolute;
+  top: 14px; right: 14px;
+  background: white;
+  border: 3px solid var(--black);
+  border-radius: 16px;
+  padding: 10px 14px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  font-weight: 700;
+  z-index: 10;
+  box-shadow: 3px 3px 0 var(--black);
+  animation: bubblePop 1.8s ease-in-out infinite;
+  max-width: 160px;
+  text-align: center;
+}
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -14px; left: 20px;
+  width: 0; height: 0;
+  border-left: 10px solid transparent;
+  border-right: 0 solid transparent;
+  border-top: 14px solid var(--black);
+}
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -10px; left: 22px;
+  width: 0; height: 0;
+  border-left: 8px solid transparent;
+  border-right: 0 solid transparent;
+  border-top: 11px solid white;
+  z-index: 1;
+}
+@keyframes bubblePop {
+  0%,100% { transform: scale(1) rotate(-2deg); }
+  50%      { transform: scale(1.07) rotate(2deg); }
+}
+.comic-bang {
+  position: absolute;
+  bottom: 10px; left: 10px;
+  background: var(--yellow);
+  border: 3px solid var(--black);
+  font-family: 'Pacifico', cursive;
+  font-size: 1.3rem;
+  padding: 6px 14px;
+  border-radius: 4px;
+  z-index: 10;
+  transform: rotate(-4deg);
+  box-shadow: 3px 3px 0 var(--black);
+}
+.comic-bubbles { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 16px; position: relative; z-index: 2; }
+.comic-tag {
+  background: white;
+  border: 2.5px solid var(--black);
+  border-radius: 12px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  padding: 6px 16px;
+  box-shadow: 3px 3px 0 var(--black);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.comic-tag:hover { background: var(--yellow); transform: translateY(-3px) rotate(2deg); }
+
+/* ===================== PHOTO 7: CAROUSEL (couple laughing) ===================== */
+#photo7 { background: var(--white); }
+.carousel-wrap {
+  position: relative;
+  width: min(92vw, 520px);
+  overflow: hidden;
+  border-radius: 24px;
+  border: 4px solid var(--black);
+  box-shadow: 10px 10px 0 var(--black);
+  z-index: 2;
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.77,0,0.175,1);
+}
+.carousel-slide { min-width: 100%; position: relative; }
+.carousel-slide img { width: 100%; display: block; height: 420px; object-fit: cover; }
+.carousel-slide-caption {
+  position: absolute; bottom:0; left:0; right:0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.75));
+  color: white;
+  font-family: 'Pacifico', cursive;
+  font-size: 1.1rem;
+  padding: 20px 16px 14px;
+  text-align: center;
+}
+.carousel-btn {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  background: white;
+  border: 3px solid var(--black);
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 3px 3px 0 var(--black);
+  transition: all 0.2s ease;
+  font-weight: 900;
+}
+.carousel-btn:hover { background: var(--yellow); transform: translateY(-50%) scale(1.1); }
+.carousel-btn.prev { left: 10px; }
+.carousel-btn.next { right: 10px; }
+.carousel-dots { display: flex; gap: 8px; justify-content: center; margin-top: 14px; z-index: 2; }
+.c-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--black);
+  opacity: 0.2;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.c-dot.active { opacity: 1; transform: scale(1.3); }
+
+/* ===================== REASONS ===================== */
+#reasons { background: var(--white); }
+.reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  max-width: 900px;
+  width: 100%;
+  position: relative; z-index: 2;
+  margin-top: 24px;
+}
+.reason-card {
+  background: white;
+  border: 3px solid var(--black);
+  border-radius: 16px;
+  padding: 20px 16px;
+  text-align: center;
+  box-shadow: 4px 4px 0 var(--black);
+  transition: all 0.25s ease;
+  cursor: default;
+}
+.reason-card:hover {
+  transform: translate(-4px,-4px);
+  box-shadow: 8px 8px 0 var(--black);
+  background: var(--yellow);
+}
+.reason-card.red:hover { background: #ffe0e0; }
+.reason-card.sky:hover { background: var(--sky); }
+.reason-emoji { font-size: 2.2rem; display: block; margin-bottom: 8px; }
+.reason-text { font-size: 0.95rem; font-weight: 700; color: var(--black); }
+
+/* ===================== FINAL ===================== */
+#final { background: var(--white); text-align: center; }
+#final .sec-title, #final .sec-text, #final .sec-label { color: var(--black); }
+#final .sec-title span { color: var(--yellow); }
+
+.final-frame {
+  position: relative;
+  width: min(90vw, 460px);
+  margin: 30px auto;
+  z-index: 2;
+}
+.final-img {
+  width: 100%;
+  border-radius: 28px;
+  border: 5px solid white;
+  display: block;
+  box-shadow: 0 0 0 6px var(--yellow), 0 0 0 10px white, 16px 16px 0 var(--yellow);
+  transition: transform 0.5s ease;
+  cursor: pointer;
+}
+.final-img:hover { transform: scale(1.03) rotate(-1deg); }
+
+.final-snoopy-star {
+  position: absolute;
+  top: -50px; right: -40px;
+  font-size: 5rem;
+  animation: starFloat 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(255,215,0,0.8));
+}
+@keyframes starFloat {
+  0%,100% { transform: translateY(0) rotate(-10deg); }
+  50%      { transform: translateY(-20px) rotate(10deg); }
+}
+
+.final-love-btn {
+  background: var(--yellow);
+  border: 3px solid white;
+  border-radius: 999px;
+  color: var(--black);
+  font-family: 'Pacifico', cursive;
+  font-size: 1.3rem;
+  padding: 18px 50px;
+  cursor: pointer;
+  margin-top: 24px;
+  position: relative; z-index: 2;
+  transition: all 0.3s ease;
+  box-shadow: 6px 6px 0 white;
+}
+.final-love-btn:hover {
+  transform: translate(-3px,-3px);
+  box-shadow: 9px 9px 0 white;
+}
+.final-love-btn:active { transform: translate(0,0); box-shadow: 3px 3px 0 white; }
+
+/* ===================== HEARTS RAIN ===================== */
+#heart-rain {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 99999;
+}
+.rain-item {
+  position: absolute;
+  top: -60px;
+  font-size: 1.8rem;
+  animation: rainFall linear forwards;
+  pointer-events: none;
+}
+@keyframes rainFall {
+  to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* ===================== CURSOR SPARKLES ===================== */
+.cursor-spark {
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  font-size: 1.2rem;
+  transition: all 0.7s ease;
+  transform: translate(-50%,-50%);
+}
+
+/* ===================== PROGRESS BAR ===================== */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--yellow), var(--red));
+  z-index: 1001;
+  transition: width 0.2s ease;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { opacity:0; animation: fadeInUp 0.8s ease forwards; }
+
+@media(max-width:640px) {
+  .top-nav { padding: 10px 16px; }
+  .nav-links { display: none; }
+  .white-card { padding: 24px 20px; }
+}
